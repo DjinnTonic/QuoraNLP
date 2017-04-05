@@ -27,6 +27,8 @@ plt.figure()
 plt.scatter(comparison['rel_sum'], comparison['num_common'], c = comparison['is_duplicate'], s=[[20 for x in range(n)]])
 plt.show()
 
-# This seems to be a good feature. Find more.
-# Find number of common verbs & nouns as a feature
+# This seems to be a good feature. Some ideas:
+# Find number of unique verbs & nouns as a feature
+# How many close (meaning-wise!!) nouns & verbs are there to the unique ones.
+# Identify specific words that appear often in duplicates.
 # Look for other intuitive semantic stuff.
