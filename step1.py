@@ -9,4 +9,3 @@ tokens = nltk.word_tokenize(sentence)
 
 
 # Check for word similarity as a feature, then display a graph how it matches.
-# Why is nltk not working?
