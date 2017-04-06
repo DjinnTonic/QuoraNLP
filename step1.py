@@ -4,7 +4,7 @@ import nltk # Install nltk and install the 'punkt' from models, using nltk.downl
 
 data = pd.read_csv("train.csv").fillna("")
 n = data.shape[0]
-#n = 60000 # Reduced it because tokenizations take forever
+n = 6000 # Reduced it because tokenizations take forever
 
 # Check for word similarity as a feature, then display a graph how it matches.
 
