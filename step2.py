@@ -37,7 +37,8 @@ def clean_dataframe(data):
 
 
 data = clean_dataframe(data)
-data.head(5)
+h = 9
+data['question1'][data['is_duplicate']==1][0:h], data['question2'][data['is_duplicate']==1][0:h]
 
 def build_corpus(data):
     "Creates a list of lists containing words from each sentence"
