@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 #data = pd.read_csv("train.csv").sample(50000)
 
-STOP_WORDS = nltk.corpus.stopwords.words()
+#STOP_WORDS = nltk.corpus.stopwords.words()
 
 def clean_sentence(val):
     """remove chars that are not letters or numbers, downcase, then remove stop words

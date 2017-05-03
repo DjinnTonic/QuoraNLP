@@ -38,7 +38,7 @@ def clean_dataframe(data):
 
 data = clean_dataframe(data)
 h = 9
-data['question1'][data['is_duplicate']==1][0:h], data['question2'][data['is_duplicate']==1][0:h]
+print(data['question1'][data['is_duplicate']==1][0:h], data['question2'][data['is_duplicate']==1][0:h])
 
 def build_corpus(data):
     "Creates a list of lists containing words from each sentence"
@@ -52,7 +52,7 @@ def build_corpus(data):
 
 corpus = build_corpus(data)
 model = word2vec.Word2Vec(corpus, size=100, window=50, min_count=200, workers=4)
-model.wv.vocab.keys()
+print(len(model.wv.vocab.keys()))
 
 
 def tsne_plot(model):
