@@ -4,6 +4,8 @@ import numpy as np
 import re
 import nltk
 from gensim.models import word2vec
+from collections import Counter
+import itertools
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 #%matplotlib inline
@@ -44,11 +46,15 @@ def clean_dataframe(data):
 #data['question1'][data['is_duplicate']==1][0:h], data['question2'][data['is_duplicate']==1][0:h]
 
 def build_corpus(data, col):
-    "Creates a list of lists containing words from each sentence"
+    """"Creates a list of lists containing words from each sentence
+    Replaces rare words with <unk> token"""
+
     corpus = []
     for sentence in data[col].iteritems():
         word_list = sentence[1].split(" ")
+        #word_list=replace_with_unks(word_list)
         corpus.append(word_list)
+        #If not in infrequent then...
 
     return corpus
 
@@ -89,3 +95,17 @@ def tsne_plot(model):
 #tsne_plot(model)
 
 # Create an option for saving the word embeddings.
+# Create padding and deleting functions
+# Lookup word in embedding (similarity?)
+
+def vec_sequences(corpus, model):
+    "Creates input for training"
+    vec_sequences = []
+    for sentence in corpus:
+        vec_sequences.append([model[word] for word in sentence])
+    return vec_sequences
+
+def remove_infrequent(corpus, threshold):
+    "Replaces rare words with UNK token"
+    counter = Counter(itertools.chain(*corpus))
+
