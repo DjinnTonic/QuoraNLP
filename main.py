@@ -28,3 +28,16 @@ emb_matrix1 = model1.wv.syn0
 # Here you can save the embedding using np.save for extraction later with TensorFlow/Keras
 
 # train_data = tf.placeholder(shape=[batch_size, max_length, embedding_size], dtype=tf.float32)
+
+from collections import Counter
+import itertools
+counter = Counter(itertools.chain(*corpus1))
+rare = [word for word, freq in counter.items() if freq < min_frequency]
+
+def replace(corpus):
+    for index, token in enumerate(corpus):
+        if isinstance(token, list):
+            replace(token)
+        elif token in rare:
+            corpus[index] = '<unk>'
+    return corpus
