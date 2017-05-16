@@ -3,11 +3,11 @@ import f_embed as emd
 from gensim.models import word2vec
 
 initial_sample = 100000
-embedding_size = 100
+embedding_size = 200
 max_length = 15 # Maximum sentence length
 min_frequency = 20 # Minimum frequency of words in word2vec model
 
-data = pd.read_csv("train.csv").sample(initial_sample)
+data = pd.read_csv("train.csv")#.sample(initial_sample)
 data = emd.clean_dataframe(data)
 
 corpus1 = emd.build_corpus(data, 'question1')

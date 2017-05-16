@@ -52,15 +52,27 @@ def build_corpus(data, col):
     corpus = []
     for sentence in data[col].iteritems():
         word_list = sentence[1].split(" ")
+        #[word if word not in rare else '<unk>' for word in sentence.split(" ")]
+        #c = [[w for w in s.split(" ")] for s in data[col]]
+
         #word_list=replace_with_unks(word_list)
         corpus.append(word_list)
         #If not in infrequent then...
 
+    # threshold = 20
+    # counter = Counter(itertools.chain(*corpus))
+    # rare = [word for word, freq in counter.items() if freq < threshold]
+    #
+    # corpus_final = []
+    # for word_list in corpus:
+    #     replaced_list = [word if word not in rare else '<unk>' for word in word_list]
+    #     corpus_final.append(replaced_list)
+    #
+    # return corpus_final
     return corpus
 
-#corpus = build_corpus(data)
-#model = word2vec.Word2Vec(corpus, size=100, window=50, min_count=200, workers=4)
-#model.wv.vocab.keys()
+    #rare = [word for word, freq in counter.items() if freq < threshold]
+    #corpus = [[word if word not in rare else '<unk>' for word in sentence.split(" ")] for sentence in data[col]] # SLOW!!!
 
 
 def tsne_plot(model):
