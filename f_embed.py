@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import re
 import nltk
-from gensim.models import word2vec
 from collections import Counter
 import itertools
 from sklearn.manifold import TSNE
@@ -52,27 +51,21 @@ def build_corpus(data, col):
     corpus = []
     for sentence in data[col].iteritems():
         word_list = sentence[1].split(" ")
-        #[word if word not in rare else '<unk>' for word in sentence.split(" ")]
-        #c = [[w for w in s.split(" ")] for s in data[col]]
-
-        #word_list=replace_with_unks(word_list)
         corpus.append(word_list)
-        #If not in infrequent then...
 
-    # threshold = 20
-    # counter = Counter(itertools.chain(*corpus))
-    # rare = [word for word, freq in counter.items() if freq < threshold]
-    #
-    # corpus_final = []
-    # for word_list in corpus:
-    #     replaced_list = [word if word not in rare else '<unk>' for word in word_list]
-    #     corpus_final.append(replaced_list)
-    #
-    # return corpus_final
     return corpus
 
-    #rare = [word for word, freq in counter.items() if freq < threshold]
-    #corpus = [[word if word not in rare else '<unk>' for word in sentence.split(" ")] for sentence in data[col]] # SLOW!!!
+
+def replace_rare(corpus, min_frequency):
+    "Replaces rare words with UNK token"
+    counter = Counter(itertools.chain(*corpus))
+    rare = set([word for word, freq in counter.items() if freq < min_frequency])
+    for index, token in enumerate(corpus):
+        if isinstance(token, list):
+            replace(token)
+        elif token in rare:
+            corpus[index] = '<unk>'
+    return corpus
 
 
 def tsne_plot(model):
@@ -117,7 +110,4 @@ def vec_sequences(corpus, model):
         vec_sequences.append([model[word] for word in sentence])
     return vec_sequences
 
-def remove_infrequent(corpus, threshold):
-    "Replaces rare words with UNK token"
-    counter = Counter(itertools.chain(*corpus))
 
