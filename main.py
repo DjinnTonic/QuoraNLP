@@ -11,9 +11,11 @@ data = pd.read_csv("train.csv")#.sample(initial_sample)
 data = emd.clean_dataframe(data)
 
 corpus1 = emd.build_corpus(data, 'question1')
+corpus1 = emd.replace_rare(corpus1, min_frequency)
 model1 = word2vec.Word2Vec(corpus1, size=embedding_size, window=50, min_count=min_frequency, workers=8)
 
 corpus2 = emd.build_corpus(data, 'question2')
+corpus2 = emd.replace_rare(corpus2, min_frequency)
 model2 = word2vec.Word2Vec(corpus2, size=embedding_size, window=50, min_count=min_frequency, workers=8)
 
 #emd.tsne_plot(model1) # T-SNE plots (2-3 min with ~4000 words)
@@ -28,6 +30,6 @@ emb_matrix1 = model1.wv.syn0
 # Here you can save the embedding using np.save for extraction later with TensorFlow/Keras
 
 # train_data = tf.placeholder(shape=[batch_size, max_length, embedding_size], dtype=tf.float32)
-
-from collections import Counter
 import itertools
+from collections import Counter
+upd_counter = Counter(itertools.chain(*corpus1))

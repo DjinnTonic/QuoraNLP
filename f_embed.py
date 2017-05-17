@@ -62,7 +62,7 @@ def replace_rare(corpus, min_frequency):
     rare = set([word for word, freq in counter.items() if freq < min_frequency])
     for index, token in enumerate(corpus):
         if isinstance(token, list):
-            replace_rare(token)
+            replace_rare(token, min_frequency)
         elif token in rare:
             corpus[index] = '<unk>'
     return corpus
