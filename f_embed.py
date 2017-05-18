@@ -56,13 +56,13 @@ def build_corpus(data, col):
     return corpus
 
 
-def replace_rare(corpus, min_frequency):
+def replace_rare(corpus, rare):
     "Replaces rare words with UNK token"
-    counter = Counter(itertools.chain(*corpus))
-    rare = set([word for word, freq in counter.items() if freq < min_frequency])
+    #counter = Counter(itertools.chain(*corpus))
+    #rare = set([word for word, freq in counter.items() if freq < min_frequency])
     for index, token in enumerate(corpus):
         if isinstance(token, list):
-            replace_rare(token, min_frequency)
+            replace_rare(token, rare)
         elif token in rare:
             corpus[index] = '<unk>'
     return corpus
@@ -103,7 +103,8 @@ def tsne_plot(model):
 # Create padding and deleting functions
 # Lookup word in embedding (similarity?)
 
-def vec_sequences(corpus, model):
+def vec_sequences(corpus, model): #Add max-length to this
+    #Experiment with tensors assignment
     "Creates input for training"
     vec_sequences = []
     for sentence in corpus:
